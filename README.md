@@ -1,3 +1,2 @@
 # streamlittest
-testing streamlit app
-Tagit ner den och nu testar vi med lite kod...
+Testar att snabbt bygga en chattbot med Streamlit och Groq som exempel.
