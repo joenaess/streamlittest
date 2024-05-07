@@ -2,10 +2,13 @@
 FROM python:3.9-slim
 
 # Set the working directory within the container
-WORKDIR /app
+WORKDIR /
 
 # Copy the app's requirements file
 COPY requirements.txt requirements.txt
+
+# Copy the app's secrets.toml with api_key to groq
+COPY secrets.toml /root/.streamlit/secrets.toml
 
 # Install the app's Python dependencies
 RUN pip install -r requirements.txt
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 8501
 
 # Define the command to run when the container starts
-CMD ["streamlit", "run", "/app/app.py"]
+CMD ["streamlit", "run", "./app/app.py"]
