@@ -21,3 +21,6 @@ EXPOSE 8501
 
 # Define the command to run when the container starts
 CMD ["streamlit", "run", "./app/app.py"]
+
+# Alternative run if testing gaudi_mixtral on intel servers
+#CMD ["streamlit", "run", "./app/app_gaudi.py"]
