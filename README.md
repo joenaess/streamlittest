@@ -12,4 +12,5 @@ raden nedan:
 #CMD ["streamlit", "run", "./app/app_gaudi.py"]
 
 och kommentera ut raden nedan:
+
 CMD ["streamlit", "run", "./app/app.py"]
