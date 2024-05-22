@@ -16,6 +16,9 @@ RUN pip install -r requirements.txt
 # Copy the rest of your Streamlit application's code
 COPY . .
 
+# Copy the secrets file
+COPY secrets.toml /app/secrets.toml
+
 # Expose the port Streamlit uses by default
 EXPOSE 8501
 
