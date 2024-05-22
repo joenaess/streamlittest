@@ -23,5 +23,5 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          echo "$GROQ_API_KEY" > secrets.toml 
-          docker run -d -p 8501:8501 --name my-streamlit-app -v $(pwd)/secrets.toml:/root/.streamlit/secrets.toml -e GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} my-streamlit-app
+          echo 'GROQ_API_KEY="${{ secrets.GROQ_API_KEY }}"' > secrets.toml
+          docker run -d -p 8501:8501 --name my-streamlit-app -v $(pwd)/secrets.toml:/root/.streamlit/secrets.toml my-streamlit-app
