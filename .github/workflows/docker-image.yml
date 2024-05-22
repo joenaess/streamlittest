@@ -1,0 +1,29 @@
+name: Build and Deploy Streamlit App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: self-hosted
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}  # Reference your secret API key
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build --build-arg GROQ_API_KEY=$GROQ_API_KEY -t your-image-name .
+
+      - name: Stop Existing Container (optional)
+        run: docker stop my-streamlit-app || true
+
+      - name: Remove Existing Container (optional)
+        run: docker rm my-streamlit-app || true
+
+      - name: Run Docker Container
+        run: docker run -d -p 8501:8501 --name my-streamlit-app my-streamlit-app
+
+
