@@ -12,7 +12,7 @@ st.subheader("Groq på svenska", divider="rainbow", anchor=False)
 client = Groq(
     api_key=st.secrets["GROQ_API_KEY"],
 )
-
+st.write("added groq key...")
 #GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 # Initialize chat history and selected model
