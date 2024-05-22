@@ -6,3 +6,10 @@ Testar att snabbt bygga en chattbot med Streamlit och Groq som exempel.
 4. docker run -p 8501:8501 streamlit-app
 
 testa tjöta med LLM från groq
+Om man vill testa att köra mot vår egen lokala LLM gå till Dockerfile och kommentera ut
+raden nedan:
+
+#CMD ["streamlit", "run", "./app/app_gaudi.py"]
+
+och kommentera ut raden nedan:
+CMD ["streamlit", "run", "./app/app.py"]
