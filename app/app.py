@@ -9,10 +9,11 @@ st.title("Groq på svenska")
 
 st.subheader("Groq på svenska", divider="rainbow", anchor=False)
 
-#client = Groq(
-#    api_key=st.secrets["GROQ_API_KEY"],
-#)
-GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+client = Groq(
+    api_key=st.secrets["GROQ_API_KEY"],
+)
+
+#GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 # Initialize chat history and selected model
 if "messages" not in st.session_state:
