@@ -8,7 +8,7 @@ WORKDIR /
 COPY requirements.txt requirements.txt
 
 # Copy the app's secrets.toml with api_key to groq
-COPY secrets.toml /root/.streamlit/secrets.toml
+#COPY secrets.toml /root/.streamlit/secrets.toml
 
 # Install the app's Python dependencies
 RUN pip install -r requirements.txt
