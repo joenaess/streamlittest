@@ -1,4 +1,7 @@
 name: Build and Deploy Streamlit App
+     run:|
+        echo ${{ secrets.GROQ_API_KEY }} > secrets.toml
+        docker build --build-arg GROQ_API_KEY=$GROQ_API_KEY -t your-image-name .
 
 on:
   push:
@@ -9,7 +12,7 @@ jobs:
   build_and_deploy:
     runs-on: self-hosted
     env:
-      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}  # Reference your secret API key
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
