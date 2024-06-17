@@ -1,5 +1,5 @@
+#from typing import Generator
 import streamlit as st
-from typing import Generator
 import requests
 
 st.set_page_config(page_icon="💬", layout="wide",
@@ -19,7 +19,9 @@ models = {
     "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
 }
 # --- API Configuration ---
-api_url = "http://10.9.10.2:8090/generate"
+api_url = "192.55.42.72:8090/generate"
+
+
 headers = {"Content-Type": "application/json"}
 max_new_tokens = 512
 
@@ -74,7 +76,7 @@ if prompt := st.chat_input("Skriv din prompt här..."):
             "parameters": {"max_new_tokens": max_new_tokens},
         }
 
-        response = requests.post(api_url, headers=headers, json=data)
+        response = requests.post(api_url, headers=headers, json=data, timeout=30)
 
         # Process the response
         if response.status_code == 200:
