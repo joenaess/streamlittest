@@ -1,5 +1,5 @@
 # Use a suitable Python base image with Streamlit pre-installed
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 # Set the working directory within the container
 WORKDIR /
@@ -20,7 +20,7 @@ COPY . .
 EXPOSE 8501
 
 # Define the command to run when the container starts
-#CMD ["streamlit", "run", "./app/app.py"]
+CMD ["streamlit", "run", "./app/app.py"]
 
 # Alternative run if testing gaudi_mixtral on intel servers
-CMD ["streamlit", "run", "./app/app_gaudi.py"]
+#CMD ["streamlit", "run", "./app/app_gaudi.py"]
