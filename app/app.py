@@ -3,15 +3,27 @@ from typing import Generator
 from groq import Groq
 
 st.set_page_config(page_icon="💬", layout="wide",
-                   page_title="Groq på svenska")
+                   page_title="GRoq på svenska")
 
-st.title("Groq på svenska")
+st.title("GRoq på svenska")
 
-st.subheader("Groq på svenska", divider="rainbow", anchor=False)
+st.subheader("GRoq på svenska", divider="rainbow", anchor=False)
+
+st.logo(
+    "./Logotyp_Liggande_Svart_WEB.png",
+    link="https://goteborgsregionen.se"
+)
 
 client = Groq(
     api_key=st.secrets["GROQ_API_KEY"],
 )
+
+# Initialize system prompt in session state
+if "system_prompt" not in st.session_state:
+    st.session_state.system_prompt = "Du är en hjälpsam bot från Göteborgsregionen som svarar på frågor. Svara på svenska om inget annat anges."
+
+# Allow user to customize system prompt
+st.session_state.system_prompt = st.text_area("Customize the system prompt:", value=st.session_state.system_prompt)
 
 # Initialize chat history and selected model
 if "messages" not in st.session_state:
@@ -22,12 +34,13 @@ if "selected_model" not in st.session_state:
 
 # Define model details
 models = {
-    "gemma-7b-it": {"name": "Gemma-7b-it", "tokens": 8192, "developer": "Google"},
-    "llama2-70b-4096": {"name": "LLaMA2-70b-chat", "tokens": 4096, "developer": "Meta"},
     "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
     "llama3-8b-8192": {"name": "LLaMA3-8b-8192", "tokens": 8192, "developer": "Meta"},
     "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
 }
+
+# Add a temperature slider
+temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.4, step=0.1)
 
 # Layout for model selection and max_tokens slider
 col1, col2 = st.columns(2)
@@ -37,7 +50,7 @@ with col1:
         "Choose a model:",
         options=list(models.keys()),
         format_func=lambda x: models[x]["name"],
-        index=4  # Default to mixtral
+        index=2  # Default to mixtral
     )
 
 # Detect model change and clear chat history if model has changed
@@ -84,6 +97,7 @@ if prompt := st.chat_input("Skriv din prompt här..."):
         chat_completion = client.chat.completions.create(
             model=model_option,
             messages=[
+                {"role": "system", "content": st.session_state.system_prompt}] + [  # Include system prompt
                 {
                     "role": m["role"],
                     "content": m["content"]
@@ -91,7 +105,8 @@ if prompt := st.chat_input("Skriv din prompt här..."):
                 for m in st.session_state.messages
             ],
             max_tokens=max_tokens,
-            stream=True
+            stream=True,
+            temperature=temperature
         )
 
         # Use the generator function with st.write_stream
